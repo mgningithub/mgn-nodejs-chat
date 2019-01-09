@@ -47,16 +47,26 @@
 
         // 画面にメッセージを追記
         function appendMessage(text) {
-            $("#messageView").append("<div>" + text + "</div>");
+            $("#messageView").prepend("<div>" + text + "</div>");
         }
 
         // 自分を含む全員宛てにメッセージを送信
-        $("#sendMessageBtn").click(function () {
+        function sendMessage() {
             // メッセージ内容を取得し、その後フォームをクリア
             var message = $("#messageForm").val();
             $("#messageForm").val("");
+
             // クライアントからサーバへ送信
             ioSocket.emit("c2s_message", { value: message });
+        };
+        // By EnterKey
+        $("#messageForm").keydown(function () {
+            if (event.keyCode == 13) { sendMessage(); };
+            return false;
+        });
+        // By Button
+        $("#sendMessageBtn").click(function () {
+            sendMessage();
         });
 
         // 自分以外の全員宛てにメッセージを送信
