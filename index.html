@@ -61,8 +61,10 @@
         };
         // By EnterKey
         $("#messageForm").keydown(function () {
-            if (event.keyCode == 13) { sendMessage(); };
-            return false;
+            if (event.keyCode == 13) {
+                sendMessage();
+                return false;
+            };
         });
         // By Button
         $("#sendMessageBtn").click(function () {
